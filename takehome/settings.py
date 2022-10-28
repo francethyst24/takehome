@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+# new
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,6 +27,14 @@ SECRET_KEY = 'django-insecure-4yt$)mp8nn7t4i6we^87j+iq=6qnn5i3m*%nym@4n%_aml3-d@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# new
+env = environ.Env()
+environ.Env.read_env()
+
+WEATHER_API_KEY = env('WEATHER_API_KEY')
+CITIES_API_KEY = env('CITIES_API_KEY')
+CITIES_API_HOST = env('CITIES_API_HOST')
+
 ALLOWED_HOSTS = []
 
 
@@ -37,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # new
+    'weather',
 ]
 
 MIDDLEWARE = [
