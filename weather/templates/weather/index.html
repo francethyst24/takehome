@@ -25,7 +25,48 @@
 
 
 <body class="container w-100 h-100">
+    <div class="row w-100 h-100">
+        {% if weather_cast %}
 
+
+        <div class="col-7 h-100" id="coolumn">
+            {% else %}
+            <div class="col-12 h-100" id="coolumn">
+                {% endif %}
+
+                <div class="row w-100 mx-0 p-3 sticky-top bg-white">
+                    <form method="GET" class="w-100">
+                        <div class="form-row w-100 m-0">
+                            <div class="col-9 p-0 pr-2">
+                                <input type="text" placeholder="{{ city_field }}" name="q" class="form-control"
+                                    required>
+                            </div>
+                            <div class="col-3 p-0">
+                                <button id="search" type="submit" class="btn btn-primary btn-block">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                {% if city_list %}
+                <form method="GET" class="w-100">
+                    <div class="row w-100 px-3 mx-0">
+                        {% for city in city_list %}
+                        <div class="col-4 px-0">
+                            <button name="q" type="submit" value="{{ city }}"
+                                class="btn btn-light btn-sm btn-block rounded-0 text-left text-truncate">
+                                {{ city }}
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </form>
+                {% endif %}
+
+
+            </div>
+
+        </div>
 </body>
 
 <style>
