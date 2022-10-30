@@ -2,7 +2,7 @@
 <html class="w-100 h-100">
 
 <head>
-    <title>Current Weather</title>
+    <title>{{ ui_txt.title_tab }}</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,34 +24,66 @@
 </head>
 
 
-<body class="container w-100 h-100">
-    <div class="row w-100 h-100">
-        {% if weather_cast %}
+<body class="container-fluid h-100">
+    <div class="row h-100">
+        {% if weather_data %}
+        <div class="col-5 bg-secondary p-3 h-100">
+            <div class="container p-3 bg-light rounded">
 
+                <div class="row mx-3 no-gutters">
+                    <p class="h4">{{ weather_data.city_name }}</p>
+                </div>
+
+                <div class="row mx-3 no-gutters">
+                    <div class="col-8">
+                        <h1 class="display-3">{{ weather_data.temp }}</h1>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <strong>{{ ui_txt.label_feels_like }}: </strong>
+                                {{ weather_data.feels_like }}
+                            </li>
+                            <li>
+                                <strong>{{ ui_txt.label_humidity }}: </strong>
+                                {{ weather_data.humidity }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-4">
+                        <img class="img-fluid mx-auto d-block" src="{{ weather_data.icon_url }}">
+                        <p class="text-center text-capitalize">{{ weather_data.description }}</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
         <div class="col-7 h-100" id="coolumn">
             {% else %}
             <div class="col-12 h-100" id="coolumn">
                 {% endif %}
 
-                <div class="row w-100 mx-0 p-3 sticky-top bg-white">
-                    <form method="GET" class="w-100">
+                <div class="row mx-0 p-3 sticky-top bg-white">
+                    <form method="GET" class="w-100" autocomplete="off">
                         <div class="form-row w-100 m-0">
                             <div class="col-9 p-0 pr-2">
-                                <input type="text" placeholder="{{ city_field }}" name="q" class="form-control"
-                                    required>
+                                <input type="text" placeholder="{{ ui_txt.field_city }}" name="{{ ui_txt.param_city }}"
+                                    class="form-control" required>
                             </div>
                             <div class="col-3 p-0">
-                                <button id="search" type="submit" class="btn btn-primary btn-block">Search</button>
+                                <button type="submit" class="btn btn-primary btn-block">{{ ui_txt.btn_search }}</button>
                             </div>
                         </div>
                     </form>
                 </div>
 
-                {% if city_list %}
+                {% if city_data %}
                 <form method="GET" class="w-100">
                     <div class="row w-100 px-3 mx-0">
-                        {% for city in city_list %}
+                        {% for city in city_data %}
                         <div class="col-4 px-0">
                             <button name="q" type="submit" value="{{ city }}"
                                 class="btn btn-light btn-sm btn-block rounded-0 text-left text-truncate">
