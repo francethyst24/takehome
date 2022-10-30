@@ -65,17 +65,18 @@
             {% else %}
             <div class="col-12 h-100" id="coolumn">
                 {% endif %}
-
                 <div class="row mx-0 p-3 sticky-top bg-white">
                     <form method="GET" class="w-100" autocomplete="off">
                         <div class="form-row w-100 m-0">
                             <div class="col-9 p-0 pr-2">
-                                <input type="text" placeholder="{{ ui_txt.field_city }}" name="{{ ui_txt.param_city }}"
+                                <input type="text" name="{{ ui_txt.param_city }}" placeholder="{{ ui_txt.field_city }}"
                                     class="form-control" required>
                             </div>
+
                             <div class="col-3 p-0">
                                 <button type="submit" class="btn btn-primary btn-block">{{ ui_txt.btn_search }}</button>
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -85,7 +86,7 @@
                     <div class="row w-100 px-3 mx-0">
                         {% for city in city_data %}
                         <div class="col-4 px-0">
-                            <button name="q" type="submit" value="{{ city }}"
+                            <button type="submit" name="{{ ui_txt.param_city }}" value="{{ city }}"
                                 class="btn btn-light btn-sm btn-block rounded-0 text-left text-truncate">
                                 {{ city }}
                             </button>
@@ -95,10 +96,10 @@
                 </form>
                 {% endif %}
 
-
             </div>
 
         </div>
+
 </body>
 
 <style>
