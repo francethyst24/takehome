@@ -27,8 +27,8 @@
 <body class="container-fluid h-100">
     <div class="row h-100">
         {% if weather_data %}
-        <div class="col-5 bg-secondary p-3 h-100">
-            <div class="container p-3 bg-light rounded">
+        <div class="col-5 bg-info p-3 h-100">
+            <div class="container p-3 rounded text-light">
 
                 <div class="row mx-3 no-gutters">
                     <p class="h4">{{ weather_data.city_name }}</p>
@@ -60,45 +60,44 @@
             </div>
 
         </div>
+        {% endif %}
 
-        <div class="col-7 h-100" id="coolumn">
-            {% else %}
-            <div class="col-12 h-100" id="coolumn">
-                {% endif %}
-                <div class="row mx-0 p-3 sticky-top bg-white">
-                    <form method="GET" class="w-100" autocomplete="off">
-                        <div class="form-row w-100 m-0">
-                            <div class="col-9 p-0 pr-2">
-                                <input type="text" name="{{ ui_txt.param_city }}" placeholder="{{ ui_txt.field_city }}"
-                                    class="form-control" required>
-                            </div>
 
-                            <div class="col-3 p-0">
-                                <button type="submit" class="btn btn-primary btn-block">{{ ui_txt.btn_search }}</button>
-                            </div>
-
+        <div class="col-{% if weather_data %}7{% else %}12{% endif %} h-100" id="coolumn">
+            <div class="row mx-0 p-3 sticky-top bg-white">
+                <form method="GET" class="w-100" autocomplete="off">
+                    <div class="form-row w-100 m-0">
+                        <div class="col-9 p-0 pr-2">
+                            <input type="text" name="{{ ui_txt.param_city }}" placeholder="{{ ui_txt.field_city }}"
+                                class="form-control" required>
                         </div>
-                    </form>
-                </div>
 
-                {% if city_data %}
-                <form method="GET" class="w-100">
-                    <div class="row w-100 px-3 mx-0">
-                        {% for city in city_data %}
-                        <div class="col-4 px-0">
-                            <button type="submit" name="{{ ui_txt.param_city }}" value="{{ city }}"
-                                class="btn btn-light btn-sm btn-block rounded-0 text-left text-truncate">
-                                {{ city }}
-                            </button>
+                        <div class="col-3 p-0">
+                            <button type="submit" class="btn btn-primary btn-block">{{ ui_txt.btn_search }}</button>
                         </div>
-                        {% endfor %}
+
                     </div>
                 </form>
-                {% endif %}
-
             </div>
 
+            {% if city_data %}
+            <form method="GET" class="w-100">
+                <div class="row w-100 px-3 mx-0">
+                    {% for city in city_data %}
+                    <div class="col-4 px-0">
+                        <button type="submit" name="{{ ui_txt.param_city }}" value="{{ city }}"
+                            class="btn btn-light btn-sm btn-block rounded-0 text-left text-truncate">
+                            {{ city }}
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </form>
+            {% endif %}
+
         </div>
+
+    </div>
 
 </body>
 

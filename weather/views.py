@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
 import requests
-import json
 import math
 
 # Create your views here.
@@ -28,10 +27,8 @@ def fetch_ui_text():
 
 
 def fetch_cities(request):
-    response = requests.get(
-        'https://countriesnow.space/api/v0.1/countries/capital'
-    )
-    countryList = json.loads(response.content.decode())['data']
+    externalApiUrl = 'https://countriesnow.space/api/v0.1/countries/capital'
+    countryList = requests.get(externalApiUrl).json()['data']
     cityList = []
     for country in countryList:
         if country['capital']:
@@ -42,21 +39,20 @@ def fetch_cities(request):
 def fetch_weather(request):
     query = request.GET.get(PARAM_CITY)
     if not query:
-        return
-    url = 'https://api.openweathermap.org/data/2.5/weather'
+        return None
+    externalApiUrl = 'https://api.openweathermap.org/data/2.5/weather'
     params = {
         'q': query.strip(),
         'APPID': settings.WEATHER_API_KEY,
         'units': 'metric',
     }
-    response = requests.get(url, params=params)
-    data = json.loads(response.content.decode())
-    imgLibUrl = 'http://openweathermap.org/img/wn'
+    data = requests.get(externalApiUrl, params=params).json()
+    iconUrl = 'http://openweathermap.org/img/wn/ICON_CODE@2x.png'
     return {
         'city_name': f"{data['name']}, {data['sys']['country']}",
         'temp': f"{math.floor(data['main']['temp'])}°C",
         'feels_like': f"{math.floor(data['main']['feels_like'])}°C",
         'humidity': f"{data['main']['humidity']}%",
         'description': data['weather'][0]['description'],
-        'icon_url': f"{imgLibUrl}/{data['weather'][0]['icon']}@2x.png",
+        'icon_url': iconUrl.replace('ICON_CODE', data['weather'][0]['icon']),
     }
