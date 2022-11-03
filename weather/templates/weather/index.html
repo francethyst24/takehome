@@ -24,7 +24,7 @@
 </head>
 
 
-<body class="container-fluid h-100 bg-dark">
+<body class="container-fluid h-100 bg-secondary">
     <div class="row h-100">
         {% if weather_data %}
         <div class="col-5 bg-info p-3 h-100">
@@ -64,7 +64,7 @@
 
 
         <div class="col-{% if weather_data %}7{% else %}12{% endif %} h-100" id="coolumn">
-            <div class="row mx-0 p-3 sticky-top bg-dark">
+            <div class="row mx-0 p-3 sticky-top bg-secondary">
                 <form method="GET" class="w-100" autocomplete="off">
                     <div class="form-row w-100 m-0">
                         <div class="col-9 p-0 pr-2">
@@ -86,7 +86,7 @@
                     {% for city in city_data %}
                     <div class="col-4 px-0">
                         <button type="submit" name="{{ ui_txt.param_city }}" value="{{ city }}"
-                            class="btn btn-secondary btn-block rounded-0 text-left text-truncate">
+                            class="btn btn-dark btn-block rounded-0 text-left text-truncate">
                             {{ city }}
                         </button>
                     </div>
